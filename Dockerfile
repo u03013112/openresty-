@@ -97,6 +97,7 @@ RUN apk add --no-cache --virtual .build-deps \
         libgcc \
         libxslt \
         zlib \
+        git \
         ${RESTY_ADD_PACKAGE_RUNDEPS} \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_PRE_CONFIGURE}" ]; then eval $(echo ${RESTY_EVAL_PRE_CONFIGURE}); fi \
@@ -142,7 +143,6 @@ RUN apk add --no-cache --virtual .build-deps \
     && make -j${RESTY_J} install \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_POST_MAKE}" ]; then eval $(echo ${RESTY_EVAL_POST_MAKE}); fi \
-    && apk del .build-deps \
     && mkdir -p /var/run/openresty \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
